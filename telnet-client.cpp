@@ -12,7 +12,7 @@
 #pragma comment(lib, "ws2_32.lib")
 
 /* -------------------------------------------------
- * TELNET ¿É¼Ç ¼³Á¤
+ * TELNET ì˜µì…˜ ì„¤ì •
  * ------------------------------------------------- */
 static const telnet_telopt_t telopts[] = {
 	{ TELNET_TELOPT_ECHO,  TELNET_WILL, TELNET_DO },
@@ -21,7 +21,7 @@ static const telnet_telopt_t telopts[] = {
 };
 
 /* -------------------------------------------------
- * TELNET ÀÌº¥Æ® ÇÚµé·¯
+ * TELNET ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
  * ------------------------------------------------- */
 static void telnet_event_handler(telnet_t *telnet,
 	telnet_event_t *ev,
@@ -32,7 +32,7 @@ static void telnet_event_handler(telnet_t *telnet,
 	switch (ev->type) {
 
 	case TELNET_EV_SEND:
-		/* libtelnetÀÌ Ã³¸®ÇÑ µ¥ÀÌÅÍ¸¦ ½ÇÁ¦ ¼ÒÄÏÀ¸·Î Àü¼Û */
+		/* libtelnetì´ ì²˜ë¦¬í•œ ë°ì´í„°ë¥¼ ì‹¤ì œ ì†Œì¼“ìœ¼ë¡œ ì „ì†¡ */
 		send(sock,
 			(const char *)ev->data.buffer,
 			(int)ev->data.size,
@@ -40,7 +40,7 @@ static void telnet_event_handler(telnet_t *telnet,
 		break;
 
 	case TELNET_EV_DATA:
-		/* ¼­¹ö¿¡¼­ ¹ÞÀº ¼ø¼ö ÅØ½ºÆ® */
+		/* ì„œë²„ì—ì„œ ë°›ì€ ìˆœìˆ˜ í…ìŠ¤íŠ¸ */
 		fwrite(ev->data.buffer, 1, ev->data.size, stdout);
 		fflush(stdout);
 		break;
@@ -86,7 +86,7 @@ int main(void)
 	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	server.sin_family = AF_INET;
-	server.sin_port = htons(23);
+	server.sin_port = htons(1234);
 	server.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 	connect(sock, (struct sockaddr *)&server, sizeof(server));
@@ -119,4 +119,5 @@ int main(void)
 	WSACleanup();
 
 	return 0;
+
 }
